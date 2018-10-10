@@ -401,6 +401,7 @@ struct context {
     int threshold;
     int diffs_last[THRESHOLD_TUNE_LENGTH];
     int smartmask_speed;
+    int smart_mask_generation_motion;
 
 
     /* Commands to the motion thread */

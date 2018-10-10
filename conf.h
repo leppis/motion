@@ -83,6 +83,7 @@ struct config {
     const char      *mask_file;
     const char      *mask_privacy;
     int             smart_mask_speed;
+    int             smart_mask_generation_motion;
     int             lightswitch_percent;
     int             lightswitch_frames;
     int             minimum_motion_frames;

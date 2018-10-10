@@ -2278,7 +2278,7 @@ static void mlp_detection(struct context *cnt){
 
     //TODO:  This section needs investigation for purpose, cause and effect
     /* Manipulate smart_mask sensitivity (only every smartmask_ratio seconds) */
-    if ((cnt->smartmask_speed) &&
+    if ((cnt->smartmask_speed && ((cnt->event_nr != cnt->prev_event) || cnt->smart_mask_generation_motion)) &&
         (!--cnt->smartmask_count)) {
         alg_tune_smartmask(cnt);
         cnt->smartmask_count = cnt->smartmask_ratio;
@@ -2826,6 +2826,11 @@ static void mlp_parmsupdate(struct context *cnt){
              * This is always 5*smartmask_speed seconds
              */
             cnt->smartmask_ratio = 5 * cnt->lastrate * (11 - cnt->smartmask_speed);
+        }
+
+        /* Has someone changed smart_mask_generation_motion? */
+        if (cnt->conf.smart_mask_generation_motion != cnt->smart_mask_generation_motion) {
+            cnt->smart_mask_generation_motion = cnt->conf.smart_mask_generation_motion;
         }
 
         dbse_sqlmask_update(cnt);

@@ -98,6 +98,7 @@ struct config conf_template = {
     .mask_file =                       NULL,
     .mask_privacy =                    NULL,
     .smart_mask_speed =                0,
+    .smart_mask_generation_motion =    0,
     .lightswitch_percent =             0,
     .lightswitch_frames =              5,
     .minimum_motion_frames =           1,
@@ -728,8 +729,20 @@ config_param config_params[] = {
     WEBUI_LEVEL_LIMITED
     },
     {
+    "smart_mask_generation_motion",
+    "# Create smart mask also when motion is being detected.\n"
+    "# This will help with aggressively moving objects, but real motion will also build the mask (default: off)",
+    0,
+    CONF_OFFSET(smart_mask_generation_motion),
+    copy_bool,
+    print_bool,
+    WEBUI_LEVEL_LIMITED
+    },
+    {
     "lightswitch_percent",
     "# Percentage of image that triggers a lightswitch detected.",
+    "# area that changed intensity. If set to 1, motion will do some kind of\n"
+    "# auto-lightswitch. Valid range: 0 - 100 , default: 0 = disabled",
     0,
     CONF_OFFSET(lightswitch_percent),
     copy_int,
