@@ -1096,16 +1096,14 @@ int alg_diff_standard(struct context *cnt, unsigned char *new)
             movq_r2r(mm3, mm0);              /* U */
 
             /* Add to *smartmask_buffer. This is probably the fastest way to do it. */
-            if (cnt->event_nr != cnt->prev_event) {
-                if (mmtemp.ub[0]) smartmask_buffer[0] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[1]) smartmask_buffer[1] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[2]) smartmask_buffer[2] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[3]) smartmask_buffer[3] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[4]) smartmask_buffer[4] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[5]) smartmask_buffer[5] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[6]) smartmask_buffer[6] += SMARTMASK_SENSITIVITY_INCR;
-                if (mmtemp.ub[7]) smartmask_buffer[7] += SMARTMASK_SENSITIVITY_INCR;
-            }
+	    if (mmtemp.ub[0]) smartmask_buffer[0] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[1]) smartmask_buffer[1] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[2]) smartmask_buffer[2] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[3]) smartmask_buffer[3] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[4]) smartmask_buffer[4] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[5]) smartmask_buffer[5] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[6]) smartmask_buffer[6] += SMARTMASK_SENSITIVITY_INCR;
+	    if (mmtemp.ub[7]) smartmask_buffer[7] += SMARTMASK_SENSITIVITY_INCR;
 
             smartmask_buffer += 8;
             smartmask_final += 8;
@@ -1180,8 +1178,7 @@ int alg_diff_standard(struct context *cnt, unsigned char *new)
                  * speed=10) we add 5 here. NOT related to the 5 at ratio-
                  * calculation.
                  */
-                if (cnt->event_nr != cnt->prev_event)
-                    (*smartmask_buffer) += SMARTMASK_SENSITIVITY_INCR;
+	        (*smartmask_buffer) += SMARTMASK_SENSITIVITY_INCR;
                 /* Apply smart_mask */
                 if (!*smartmask_final)
                     curdiff = 0;

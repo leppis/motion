@@ -2278,7 +2278,7 @@ static void mlp_detection(struct context *cnt){
 
     //TODO:  This section needs investigation for purpose, cause and effect
     /* Manipulate smart_mask sensitivity (only every smartmask_ratio seconds) */
-    if ((cnt->smartmask_speed && (cnt->event_nr != cnt->prev_event)) &&
+    if ((cnt->smartmask_speed) &&
         (!--cnt->smartmask_count)) {
         alg_tune_smartmask(cnt);
         cnt->smartmask_count = cnt->smartmask_ratio;
