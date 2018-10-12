@@ -741,8 +741,6 @@ config_param config_params[] = {
     {
     "lightswitch_percent",
     "# Percentage of image that triggers a lightswitch detected.",
-    "# area that changed intensity. If set to 1, motion will do some kind of\n"
-    "# auto-lightswitch. Valid range: 0 - 100 , default: 0 = disabled",
     0,
     CONF_OFFSET(lightswitch_percent),
     copy_int,
