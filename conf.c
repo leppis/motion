@@ -90,6 +90,7 @@ struct config conf_template = {
     /* Motion detection configuration parameters */
     .emulate_motion =                  FALSE,
     .threshold =                       DEF_CHANGES,
+    .threshold_maximum =               0,
     .threshold_tune =                  FALSE,
     .noise_level =                     DEF_NOISELEVEL,
     .noise_tune =                      TRUE,
@@ -168,7 +169,6 @@ struct config conf_template = {
 
     /* Live stream configuration parameters */
     .stream_port =                     0,
-    .substream_port =                  0,
     .stream_localhost =                TRUE,
     .stream_auth_method =              0,
     .stream_authentication =           NULL,
@@ -652,6 +652,15 @@ config_param config_params[] = {
     "# Threshold for number of changed pixels that triggers motion.",
     0,
     CONF_OFFSET(threshold),
+    copy_int,
+    print_int,
+    WEBUI_LEVEL_LIMITED
+    },
+    {
+    "threshold_maximum",
+    "# The maximum threshold for number of changed pixels that triggers motion.",
+    0,
+    CONF_OFFSET(threshold_maximum),
     copy_int,
     print_int,
     WEBUI_LEVEL_LIMITED
@@ -1236,15 +1245,6 @@ config_param config_params[] = {
     "# The port number for the live stream.",
     0,
     CONF_OFFSET(stream_port),
-    copy_int,
-    print_int,
-    WEBUI_LEVEL_ADVANCED
-    },
-    {
-    "substream_port",
-    "# The port number for the live substream",
-    0,
-    CONF_OFFSET(substream_port),
     copy_int,
     print_int,
     WEBUI_LEVEL_ADVANCED

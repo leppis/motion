@@ -1082,6 +1082,12 @@
           <td align="left"><a href="#threshold" >threshold</a></td>
         </tr>
         <tr>
+          <td height="17" align="left"></td>
+          <td align="left"></td>
+          <td align="left"></td>
+          <td align="left"><a href="#threshold_maximum" >threshold_maximum</a></td>
+        </tr>
+        <tr>
           <td height="17" align="left">threshold_tune</td>
           <td align="left">threshold_tune</td>
           <td align="left">threshold_tune</td>
@@ -1555,28 +1561,30 @@
             <tr>
               <td bgcolor="#edf4f9" ><a href="#emulate_motion" >emulate_motion</a> </td>
               <td bgcolor="#edf4f9" ><a href="#threshold" >threshold</a> </td>
+              <td bgcolor="#edf4f9" ><a href="#threshold_maximum" >threshold_maximum</a> </td>
               <td bgcolor="#edf4f9" ><a href="#threshold_tune" >threshold_tune</a> </td>
-              <td bgcolor="#edf4f9" ><a href="#noise_level" >noise_level</a> </td>
             </tr>
             <tr>
+              <td bgcolor="#edf4f9" ><a href="#noise_level" >noise_level</a> </td>
               <td bgcolor="#edf4f9" ><a href="#noise_tune" >noise_tune</a> </td>
               <td bgcolor="#edf4f9" ><a href="#despeckle_filter" >despeckle_filter</a> </td>
               <td bgcolor="#edf4f9" ><a href="#area_detect" >area_detect</a> </td>
-              <td bgcolor="#edf4f9" ><a href="#mask_file" >mask_file</a> </td>
             </tr>
             <tr>
+              <td bgcolor="#edf4f9" ><a href="#mask_file" >mask_file</a> </td>
               <td bgcolor="#edf4f9" ><a href="#mask_privacy" >mask_privacy</a> </td>
               <td bgcolor="#edf4f9" ><a href="#smart_mask_speed" >smart_mask_speed</a> </td>
               <td bgcolor="#edf4f9" ><a href="#lightswitch_percent" >lightswitch_percent</a> </td>
-              <td bgcolor="#edf4f9" ><a href="#lightswitch_frames" >lightswitch_frames</a> </td>
             </tr>
             <tr>
-             <td bgcolor="#edf4f9" ><a href="#minimum_motion_frames" >minimum_motion_frames</a> </td>
+              <td bgcolor="#edf4f9" ><a href="#lightswitch_frames" >lightswitch_frames</a> </td>
+              <td bgcolor="#edf4f9" ><a href="#minimum_motion_frames" >minimum_motion_frames</a> </td>
               <td bgcolor="#edf4f9" ><a href="#event_gap" >event_gap</a> </td>
               <td bgcolor="#edf4f9" ><a href="#pre_capture" >pre_capture</a> </td>
+            </tr>
+            <tr>
               <td bgcolor="#edf4f9" ><a href="#post_capture" >post_capture</a> </td>
             </tr>
-
           </tbody>
         </table>
 
@@ -2809,6 +2817,20 @@
             Motion will revert to the camera default.
         </ul>
         <p></p>
+
+        <i>mjpg://</i>
+        <ul>
+            This option processes very old netcams with non standard mjpeg formats.
+        </ul>
+        <p></p>
+
+        <i>jpeg://</i>
+        <ul>
+            This option is for processing a static JPG file that is updated by processes external
+            to Motion. It must be a local file and specified such as jpeg:///path/current.jpg
+        </ul>
+        <p></p>
+
         </ul>
 
         <h3><a name="netcam_highres"></a> netcam_highres </h3>
@@ -3338,6 +3360,20 @@
          the value. If motion detects too many birds or moving trees, increase the number. (Unless of course
          you are one of the many many users who use Motion to bird watch!)
          Practical values would be from a few hundred to thousands.
+        <p></p>
+
+        <h3><a name="threshold_maximum"></a> threshold_maximum</h3>
+        <p></p>
+        <ul>
+          <li> Type: Integer</li>
+          <li> Range / Valid values: 0, 1 to unlimited</li>
+          <li> Default: 0 (off)</li>
+        </ul>
+        <p></p>
+        This parameter specifies the maximum number of pixels that will trigger motion.  When the number of
+        changed pixels is above the maximum, it will not trigger an event.  The result is that Motion will
+        only trigger events when the number of pixels changes is above the threshold and less than
+        the threshold_maximum.  A value of zero disables threshold_maximum.
         <p></p>
 
         <h3><a name="threshold_tune"></a> threshold_tune </h3>
@@ -4519,7 +4555,7 @@
 
           return 0</pre>
         Note that the replacement of characters with the urlcode values is required whenever updating via
-        the web interface.
+        a script or outside the html/css <a href="#webcontrol_interface">webcontrol_interface</a>
         <p></p>
         To control from your own software (for example your own PHP front end) the motion.conf
         option <a href="#webcontrol_interface">webcontrol_interface</a> can be set to <code>1</code>(text) which
@@ -4537,21 +4573,15 @@
           <li><code>{value2}</code> The second value of the Motion configuration parameter requested.</li>
         </ul>
         <p></p>
-        The following are the commands available.  Unless indicated below, these commands are available when
-        using either the HTML/CSS interface or the text interface as specified via the
-        <a href="#webcontrol_interface">webcontrol_interface</a>.
+        The following are the commands available.
         <p></p>
 	      <ul>
-          <li><code>{IP}:{port}/{camid}/config/list</code> Lists all the configuration values for the camera.  This
-            command is only available when using the text interface. </li>
+          <li><code>{IP}:{port}/{camid}/config/list</code> Lists all the configuration values for the camera.  </li>
           <li><code>{IP}:{port}/{camid}/config/set?{parm}={value1}</code>Set the value for the requested parameter </li>
-          <li><code>{IP}:{port}/{camid}/config/get?query={parm}</code> Return the value currently set for the parameter. This
-            command is only available when using the text interface. </li>
+          <li><code>{IP}:{port}/{camid}/config/get?query={parm}</code> Return the value currently set for the parameter.</li>
           <li><code>{IP}:{port}/{camid}/config/write</code> Write the current parameters to the file.</li>
-          <li><code>{IP}:{port}/{camid}/detection/status</code> Return the current status of the camera.  This
-            command is only available when using the text interface. </li>
-          <li><code>{IP}:{port}/{camid}/detection/connection</code> Return the connection status of the camera.  This
-            command is only available when using the text interface. </li>
+          <li><code>{IP}:{port}/{camid}/detection/status</code> Return the current status of the camera.</li>
+          <li><code>{IP}:{port}/{camid}/detection/connection</code> Return the connection status of the camera.</li>
           <li><code>{IP}:{port}/{camid}/detection/start</code> Start or resume motion detection. </li>
           <li><code>{IP}:{port}/{camid}/detection/pause</code> Pause the motion detection.</li>
           <li><code>{IP}:{port}/{camid}/action/eventstart</code> Trigger a new event.</li>
@@ -4658,12 +4688,16 @@
         <p></p>
         <ul>
           <li> Type: Integer</li>
-          <li> Range / Valid values: 0, 1</li>
+          <li> Range / Valid values: 0 - 2</li>
           <li> Default: 0</li>
         </ul>
         <p></p>
-        The type of webcontrol interface to provide.  The value of 0 provides a traditional
-        web page interface.  The value of 1 provides a text only interface suitable for programmatic access.
+        The type of webcontrol interface to provide.
+        <ul>
+        <li>The value of 0 provides a traditional web page interface using html/css.</li>
+        <li>The value of 1 provides a text only interface suitable for programmatic access.</li>
+        <li>The value of 2 provides the legacy web control interface</li>
+        </ul>
         <p></p>
         This option must be placed in motion.conf and not in a camera config file. The
         recommended value for most is "0" which provides a page you can navigate and control
