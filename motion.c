@@ -2825,7 +2825,6 @@ static void mlp_parmsupdate(struct context *cnt){
     } else {
         cnt->threshold_maximum = (cnt->imgs.height * cnt->imgs.width * 3) / 2;
     }
->>>>>>> upstream/master
 
     if (!cnt->conf.noise_tune){
         cnt->noise = cnt->conf.noise_level;
